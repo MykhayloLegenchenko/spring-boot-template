@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layouts/main}">
+<head>
+	<title>Registration</title>
+</head>
+<body>
+	<div class="container" layout:fragment="container">
+		<h1>Registration</h1>
+		<p>This is registration page.</p>
+		<form id="registationForm" th:action="@{/register}" th:object="${registationForm}" method="post">
+			<div class="form-group">
+				<label for="registrationEmail">Email address</label>
+				<input type="email" id="registrationEmail" th:field="*{email}" class="form-control" placeholder="Email" required>
+				<label class="error" for="registrationEmail" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+			</div>
+			<div class="form-group">
+				<label for="registrationPassword">Password</label>
+				<input type="password" id="registrationPassword" name="password" class="form-control" placeholder="Password" required>
+				<label class="error" for="registrationPassword" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+			</div>
+			<div class="form-group">
+				<label for="registrationConfirmPassword">Password</label>
+				<input type="password" id="registrationConfirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required>
+				<label class="error" for="registratioConfirmnPassword" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></label>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Register">
+		</form>
+	</div>
+	<th:block layout:fragment="pageScript">
+	<script>
+		$(function() {
+			$('#registationForm').validate({
+				rules: {
+					password: {
+						minlength: 5
+					},
+					confirmPassword: {
+						equalTo: '#registrationPassword'
+					}
+				},
+				messages: {
+					confirmPassword: {
+						equalTo: '[[#{error.passwordConfirmation}]]'
+					}
+				}
+			});
+		});
+	</script>
+	</th:block>
+</body>
+</html>

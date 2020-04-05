@@ -1,0 +1,75 @@
+<!doctype html>
+<html th:lang="${#locale.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!--/* Required meta tags */-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!--/* Site title */-->
+	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Template</title>
+
+	<!--/* Bootstrap CSS */-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous" />
+	
+	<!--/* Custom CSS */-->
+	<link th:href="@{/css/style.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+	<!--/* Header */-->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/}">Template</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="nav navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/}">Home</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav ml-auto">
+				<li sec:authorize="isAnonymous()" class="nav-item">
+					<a class="nav-link" th:href="@{/login}">Login</a>
+				</li>
+				<li sec:authorize="isAnonymous()" class="nav-item">
+					<a class="nav-link" th:href="@{/register}">Register</a>
+				</li>
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hi <span sec:authentication="name">username</span>!</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                    	<a sec:authorize="hasRole('admin')" class="dropdown-item" th:href="@{/admin/users}">Manage Users</a>
+                        <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                    </div>
+                </li>
+			</ul>
+		</div>
+	</nav>
+	<!--/* Header*/-->
+
+	<div class="container" layout:fragment="container">
+		This content will be replaced.		
+	</div>
+
+	<!--/* Footer */-->
+	<footer class="font-small text-light bg-dark">
+		<p class="text-center">&copy; Copyright 2020 - Company Name.  All rights reserved.</p>
+	</footer>
+	<!--/* Footer */-->
+
+	<!--/* Optional JavaScript */-->
+	<!--/* jQuery first, then Popper.js, then Bootstrap JS */-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" integrity="sha256-sPB0F50YUDK0otDnsfNHawYmA5M0pjjUf4TvRJkGFrI=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" integrity="sha256-/ijcOLwFf26xEYAjW75FizKVo5tnTYiQddPZoLUHHZ8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+	
+	<!--/* Additional scripts */-->
+	<th:block layout:fragment="pageScript"></th:block>
+</body>
+</html>

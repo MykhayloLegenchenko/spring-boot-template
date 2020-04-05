@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layouts/main}">
+<head>
+	<title>Login</title>
+</head>
+<body>
+	<div class="container" layout:fragment="container">
+		<h1>Login</h1>
+		<p>This is login page.</p>
+		<form id="loginForm" th:action="@{/login}" th:object="${loginForm}" method="post">
+			<div class="form-group">
+				<label for="loginEmail">Email address</label>
+				<input type="email" id="loginEmail" th:field="*{email}" class="form-control" placeholder="Email" required>
+				<label class="error" for="loginEmail" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+			</div>
+			<div class="form-group">
+				<label for="loginPassword">Password</label>
+				<input type="password" id="loginPassword" name="password" class="form-control" placeholder="Password" required>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" th:field="*{rememberMe}"> Remember me
+				</label>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Login">
+		</form>
+	</div>
+	<th:block layout:fragment="pageScript">
+	<script>
+		$(function() {
+			$('#loginForm').validate();
+		});
+	</script>
+	</th:block>
+</body>
+</html>

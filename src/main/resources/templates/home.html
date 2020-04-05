@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layouts/main}">
+<head>
+<title>Home</title>
+</head>
+<body>
+	<div class="container" layout:fragment="container">
+		<h1>Home</h1>
+		<th:block th:each="i: ${#numbers.sequence(1, 10)}">
+		<p>This is home page line #[[${i}]].</p>
+		</th:block>
+	</div>
+</body>
+</html>

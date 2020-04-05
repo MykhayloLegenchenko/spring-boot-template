@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layouts/main}">
+<head>
+	<title>Manage Users</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+</head>
+<body>
+	<div class="container" layout:fragment="container">
+		<h1>Manage Users</h1>
+		<p>Manage users page.</p>
+		<table id="usersTable" style="width: 100%">
+			<thead>
+				<tr>
+					<th>Created</th>
+					<th>Email</th>
+					<th>Roles</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<th:block layout:fragment="pageScript">
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#usersTable').DataTable({
+				pageLength: "[[${@configProperties['dataTable.pageLenght']}]]",
+				processing: true,
+				serverSide: true,
+				ajax: {
+					url: '[[@{/admin/users/search}]]',
+					type: 'POST',
+					data: {
+						'[[${_csrf.parameterName}]]': '[[${_csrf.token}]]'
+					}
+				},
+				columns: [
+					null,
+					null,
+					{ orderable: false }
+				]
+			})
+		});
+	</script>
+	</th:block>
+</body>
+</html>
